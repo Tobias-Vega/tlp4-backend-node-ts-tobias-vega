@@ -1,4 +1,4 @@
-import { singPayload } from "../utils/jwt.js";
+import { singToken } from "../utils/jwt.js";
 import type { CreateUser } from "../interfaces/create-user.interface.js";
 import type { IUser } from "../interfaces/user.interface.js";
 import { userModel } from "../models/user.model.js";
@@ -7,6 +7,13 @@ import bcrypt from 'bcrypt';
 export class AuthService {
 
   async register(data: CreateUser): Promise<{ user: IUser; token: string }> {
+
+    const userExists = await userModel.findOne({ email: data.email });
+
+    if (userExists) {
+      throw new Error('User already exists'); 
+    }
+
     const { password, ...userData } = data;
     
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -15,7 +22,7 @@ export class AuthService {
 
     await newUser.save();
 
-    const token = singPayload({ id: newUser._id });
+    const token = singToken({ id: newUser._id });
 
     return { user: newUser, token };
   }
@@ -34,7 +41,7 @@ export class AuthService {
       return null;
     }
 
-    const token = singPayload({ id: user._id });
+    const token = singToken({ id: user._id });
 
     return { user, token };
   }

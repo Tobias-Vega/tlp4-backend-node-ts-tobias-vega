@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
 
-export const singPayload = (payload: Object) => {
+export const singToken = (payload: Object) => {
   return jwt.sign(payload, process.env.JWT_SECRET!!, { expiresIn: '1d' });
 }
 
-export const verifyToken = (token: string) => {
+export const verifyToken = (token: string, secret: string) => {
   try {
-    return jwt.verify(token, process.env.JWT_SECRET!!);
+    return jwt.verify(token, secret);
   } catch (error) {
     return null;
   }

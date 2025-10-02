@@ -6,4 +6,6 @@ export interface IProduct {
   brand: string;
   status: "available" | "unavailable";
   responsible: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
