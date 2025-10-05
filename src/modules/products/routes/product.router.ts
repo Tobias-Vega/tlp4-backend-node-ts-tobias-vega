@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { ProductController } from "../controllers/product.controller.js";
-import { validateJWT } from "../middlewares/validate-jwt.middleware.js";
-import { permission } from "../middlewares/role.middleware.js";
+import { validateJWT } from "../../../middlewares/validate-jwt.middleware.js";
+import { permission } from "../../../middlewares/role.middleware.js";
 import { productValidation, updateProdcutValidation } from "../validations/product.validation.js";
-import { validation } from "../middlewares/validation.middleware.js";
+import { validation } from "../../../middlewares/validation.middleware.js";
 
 const productRouter = Router();
 

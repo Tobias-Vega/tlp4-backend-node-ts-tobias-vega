@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import cookie from 'cookie-parser';
-import authRouter from './routes/auth.routes.js';
-import productRouter from './routes/product.router.js';
+import authRouter from './modules/auth/routes/auth.routes.js';
+import productRouter from './modules/products/routes/product.router.js';
 
 export const createApp = () => {
   const app = express();

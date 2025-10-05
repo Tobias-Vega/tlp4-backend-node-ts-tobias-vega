@@ -1,18 +1,17 @@
-import dotenv from 'dotenv';
 import { createApp } from "./app.js";
-import mongoose from 'mongoose';
-
-dotenv.config();
-
-const MONGO = process.env.MONGODB_URI!!;
+import envs from "./config/envs.config.js";
+import { MongoConfig } from "./config/mongo-db.config.js";
+import { ConnectDB } from "./database/connect-db.js";
 
 async function start() {
 
-  await mongoose.connect(MONGO);
   const app = createApp();
-  const port = process.env.PORT;
+  const port = envs.PORT;
 
-  app.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
+  app.listen(port, async () => {
+    await ConnectDB.getInstance(new MongoConfig()).connect();
+    console.log(`Server running on port ${port}`);
+  });
 }
 
 start();
