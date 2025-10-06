@@ -3,3 +3,11 @@ export interface CreateUserDto {
   email: string;
   password: string;
 }
+
+export interface AuthResponse {
+  user: {
+    name: string;
+    email: string;
+  };
+  token: string;  
+  }
