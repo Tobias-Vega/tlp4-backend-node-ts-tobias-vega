@@ -5,6 +5,7 @@ const envs = {
   MONGODB_URI: process.env.MONGODB_URI,
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "1h",
+  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
 }
 
 export default envs;

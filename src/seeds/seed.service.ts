@@ -1,3 +1,4 @@
+import envs from "../config/envs.config.js";
 import { userModel } from "../modules/auth/models/user.model.js";
 import { ProductModel } from "../modules/products/models/product.model.js";
 import bcrypt from "bcrypt";
@@ -9,7 +10,7 @@ export class SeedService {
       
       await ProductModel.deleteMany({});
       await userModel.deleteMany({});
-      const hashedAdminPassword = await bcrypt.hash('admin123', 10);
+      const hashedAdminPassword = await bcrypt.hash(envs.ADMIN_PASSWORD!!, 10);
       await userModel.create({
         name: 'Administrador',
         email: 'admin@example.com',
