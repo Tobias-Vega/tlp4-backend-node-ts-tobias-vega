@@ -1,5 +1,5 @@
 import type { Response, NextFunction } from "express"
-import type { AuthRequest } from "./validate-jwt.middleware.js"
+import type { AuthRequest } from "./interfaces/auth-request.interface.js";
 
 export const permission = (roles: string[]) => {
 

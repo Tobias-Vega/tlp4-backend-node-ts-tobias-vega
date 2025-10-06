@@ -1,12 +1,13 @@
 import bcrypt from 'bcrypt';
-import type { CreateUser } from "../interfaces/create-user.interface.js";
 import type { IUser } from "../interfaces/user.interface.js";
 import { userModel } from "../models/user.model.js";
 import { JwtService } from "../../../utils/jwt.js";
+import type { CreateUserDto } from '../dto/create-user.dto.js';
+import type { LoginUserDto } from '../dto/login-user.dto.js';
 
 export class AuthService {
 
-  async register(data: CreateUser): Promise<{ user: IUser; token: string }> {
+  async register(data: CreateUserDto): Promise<{ user: IUser; token: string }> {
     const userExists = await userModel.findOne({ email: data.email });
 
     if (userExists) {
@@ -23,14 +24,14 @@ export class AuthService {
     return { user: newUser, token };
   }
 
-  async login(email: string, password: string): Promise<{ user: IUser; token: string } | null> {
-    const user = await userModel.findOne({ email });
+  async login(data: LoginUserDto): Promise<{ user: IUser; token: string } | null> {
+    const user = await userModel.findOne({ email: data.email });
 
     if (!user) {
       return null;
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(data.password, user.password);
     if (!isPasswordValid) {
       return null;
     }

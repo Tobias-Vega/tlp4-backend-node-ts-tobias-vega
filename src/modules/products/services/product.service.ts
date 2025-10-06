@@ -1,10 +1,10 @@
-import type { CreateProduct } from "../interfaces/create-product.interface.js";
+import type {  CreateProductDto } from "../dto/create-product.interface.js";
 import type { IProduct } from "../interfaces/product.interface.js";
 import { ProductModel } from "../models/product.model.js";
 
 export class ProductService {
 
-  async createProduct(data: CreateProduct): Promise<IProduct> {
+  async createProduct(data: CreateProductDto): Promise<IProduct> {
     const newProduct = new ProductModel(data);
     return await newProduct.save();
   }
@@ -17,7 +17,7 @@ export class ProductService {
     return await ProductModel.findById(id);
   }
 
-  async updateProduct(id: string, data: CreateProduct): Promise<IProduct | null> {
+  async updateProduct(id: string, data: CreateProductDto): Promise<IProduct | null> {
     return await ProductModel.findByIdAndUpdate(id, data, { new: true });
   }
 

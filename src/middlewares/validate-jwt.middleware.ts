@@ -1,13 +1,9 @@
-import type { Request, Response, NextFunction } from 'express';   
+import type { Response, NextFunction } from 'express';   
 import { JwtService } from '../utils/jwt.js';
-import type { JwtPayload } from 'jsonwebtoken';
-
-export interface AuthRequest extends Request {
-  user?: JwtPayload;
-}
+import type { AuthRequest } from './interfaces/auth-request.interface.js';
 
 export const validateJWT = (req: AuthRequest, res: Response, next: NextFunction) => {
-  const token = req.cookies?.token;
+  const token = req.cookies.token;
 
   if (!token) return res.status(401).json({ message: 'No token provided' });
 

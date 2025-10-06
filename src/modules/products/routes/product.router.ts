@@ -4,17 +4,45 @@ import { validateJWT } from "../../../middlewares/validate-jwt.middleware.js";
 import { permission } from "../../../middlewares/role.middleware.js";
 import { productValidation, updateProdcutValidation } from "../validations/product.validation.js";
 import { validation } from "../../../middlewares/validation.middleware.js";
+import { ProductService } from "../services/product.service.js";
 
 const productRouter = Router();
 
 productRouter.use(validateJWT);
 
-const productController = new ProductController();
+const productService = new ProductService();
+const productController = new ProductController(productService);
 
-productRouter.get("/", permission(["admin", "user"]), (req, res) => productController.getAllProducts(req, res));
-productRouter.get("/:id", permission(["admin", "user"]), (req, res) => productController.getProductById(req, res));
-productRouter.post("/", permission(["admin"]), productValidation, validation, (req, res) => productController.createProduct(req, res));
-productRouter.patch("/:id", permission(["admin"]), updateProdcutValidation, validation, (req, res) => productController.updateProduct(req, res));
-productRouter.delete("/:id", permission(["admin"]), (req, res) => productController.deleteProduct(req, res));
+productRouter.get(
+  "/", 
+  permission(["admin", "user"]),
+  productController.getAllProducts
+);
+
+productRouter.get(
+  "/:id", 
+  permission(["admin", "user"]), 
+  productController.getProductById
+);
+
+productRouter.post(
+  "/", 
+  permission(["admin"]), 
+  productValidation, validation, 
+  productController.createProduct
+);
+
+productRouter.patch("/:id", 
+  permission(["admin"]), 
+  updateProdcutValidation, 
+  validation, 
+  productController.updateProduct
+);
+
+productRouter.delete(
+  "/:id", 
+  permission(["admin"]), 
+  productController.deleteProduct
+);
 
 export default productRouter;

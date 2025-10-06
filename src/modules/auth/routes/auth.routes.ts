@@ -2,14 +2,30 @@ import { Router } from "express";
 import { UserController } from "../controllers/auth.controller.js";
 import { validation } from "../../../middlewares/validation.middleware.js";
 import { loginValidation, registerValidation } from "../validations/auth.validation.js";
+import { AuthService } from "../services/auth.service.js";
 
 const authRouter = Router();
 
-const userController = new UserController();
+const authService = new AuthService();
+const userController = new UserController(authService);
 
-authRouter.post("/register", registerValidation, validation, (req, res) => userController
-.register(req, res));
-authRouter.post("/login", loginValidation, validation, (req, res) => userController.login(req, res));
-authRouter.post("/logout", (req, res) => userController.logout(req, res));
+authRouter.post(
+  "/register", 
+  registerValidation, 
+  validation, 
+  userController.register
+);
+
+authRouter.post(
+  "/login", 
+  loginValidation, 
+  validation, 
+  userController.login
+);
+
+authRouter.post(
+  "/logout",
+  userController.logout
+)
 
 export default authRouter;
