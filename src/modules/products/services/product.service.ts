@@ -1,4 +1,5 @@
 import type {  CreateProductDto } from "../dto/create-product.interface.js";
+import type { UpdateProductDto } from "../dto/update-product.interface.js";
 import type { IProduct } from "../interfaces/product.interface.js";
 import { ProductModel } from "../models/product.model.js";
 
@@ -17,7 +18,7 @@ export class ProductService {
     return await ProductModel.findById(id);
   }
 
-  async updateProduct(id: string, data: CreateProductDto): Promise<IProduct | null> {
+  async updateProduct(id: string, data: UpdateProductDto): Promise<IProduct | null> {
     return await ProductModel.findByIdAndUpdate(id, data, { new: true });
   }
 

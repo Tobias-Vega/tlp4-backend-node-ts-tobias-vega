@@ -46,11 +46,11 @@ export class ProductController {
   updateProduct = async (req: Request, res: Response): Promise<Response> => {
     try {
       const { id } = req.params;
-      const { name, type, brand, responsible } = req.body;
+      const { name, type, brand, responsible, status } = req.body;
 
       if (!id) return res.status(400).json({ message: 'Product ID is required' });
 
-      const updatedProduct = await this.productService.updateProduct(id, { name, type, brand, responsible });
+      const updatedProduct = await this.productService.updateProduct(id, { name, type, brand, responsible, status });
       if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
 
       return res.status(200).json(updatedProduct);
@@ -65,7 +65,9 @@ export class ProductController {
       const { id } = req.params;
       if (!id) return res.status(400).json({ message: 'Product ID is required' });
 
-      await this.productService.deleteProduct(id);
+      const removed = await this.productService.deleteProduct(id);
+
+      if (!removed) return res.status(404).json({ message: 'Product not found' });
 
       return res.status(204).send();
     } catch (error) {
