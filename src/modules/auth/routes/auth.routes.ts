@@ -3,6 +3,7 @@ import { UserController } from "../controllers/auth.controller.js";
 import { validation } from "../../../middlewares/validation.middleware.js";
 import { loginValidation, registerValidation } from "../validations/auth.validation.js";
 import { AuthService } from "../services/auth.service.js";
+import { validateJWT } from "../../../middlewares/validate-jwt.middleware.js";
 
 const authRouter = Router();
 
@@ -25,6 +26,7 @@ authRouter.post(
 
 authRouter.post(
   "/logout",
+  validateJWT,
   userController.logout
 )
 
