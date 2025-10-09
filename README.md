@@ -65,3 +65,11 @@ Este endpoint creará:
 - Usuarios de ejemplo
 - Productos de ejemplo
 
+### Configuración de Docker
+
+Si prefieres usar Docker, asegúrate de tener Docker y Docker Compose instalados. Luego, ejecuta:
+
+```bash
+docker-compose up --build
+```
+Esto levantará tanto el contenedor de la base de datos MongoDB como el contenedor del backend.
