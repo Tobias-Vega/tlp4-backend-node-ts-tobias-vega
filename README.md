@@ -26,8 +26,8 @@ Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
 PORT=3000
 
 # URI de conexión a MongoDB
-# Opción 1: MongoDB local
-MONGODB_URI=mongodb://localhost:27017/tlp4-database
+# Opción 1: MongoDB
+MONGODB_URI=mongodb://mongo:27017/tlp4-database
 
 # Configuración de JWT
 JWT_SECRET=tu_clave_secreta_muy_segura_aqui
