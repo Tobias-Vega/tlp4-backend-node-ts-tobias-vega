@@ -64,3 +64,4 @@ Este endpoint creará:
 - Un usuario administrador con las credenciales configuradas en `.env`
 - Usuarios de ejemplo
 - Productos de ejemplo
+
